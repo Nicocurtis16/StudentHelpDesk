@@ -54,6 +54,7 @@
               </div>
               <input
                 type="text"
+                [(ngModel)]="username"
                 placeholder="Your email or staff ID"
                 class="grow h-6 text-zinc-400 text-base font-normal font-['Archivo'] leading-normal tracking-tight bg-transparent focus:outline-none"
               />
@@ -81,6 +82,7 @@
               </div>
               <input
                 [type]="isPasswordVisible ? 'text' : 'password'"
+                [(ngModel)]="password"
                 placeholder="Type your password here"
                 class="grow h-6 text-zinc-400 text-base font-normal font-['Archivo'] leading-normal tracking-tight bg-transparent focus:outline-none"
               />
@@ -120,6 +122,7 @@
 
           <!-- Button -->
           <button
+            (click)="login()"
             class="h-[100px] w-[407px] bg-blue-700 hover:bg-blue-400 text-white text-base font-normal font-['Archivo'] leading-normal tracking-tight rounded-lg flex justify-center items-center"
             style="height: 100px"
           >

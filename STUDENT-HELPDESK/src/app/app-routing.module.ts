@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { LoginComponent } from '../app/LoginPage/login/login.component';
-import { DashboardComponent } from '../app/Dashboard/dashboard/dashboard.component';
-import { SidebarComponent } from '../app/Dashboard/sidebar/sidebar.component';
-import { DashlayoutComponent } from '../app/Dashboard/dashlayout/dashlayout.component';
+import { LoginComponent } from './LoginPage/login/login.component';
+import { DashboardComponent } from './Dashboard/dashboard/dashboard.component';
+import { SidebarComponent } from './Dashboard/sidebar/sidebar.component';
+import { DashlayoutComponent } from './Dashboard/dashlayout/dashlayout.component';
 import { InboxComponent } from './Dashboard/inbox/inbox.component';
 
 const routes: Routes = [
