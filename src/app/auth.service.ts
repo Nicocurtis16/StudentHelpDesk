@@ -6,19 +6,18 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class AuthService {
-  private apiUrl = 'http://godinberto.pythonanywhere.com/api/admin/login'; // Updated API URL
+  private apiUrl = 'http://godinberto.pythonanywhere.com/api/admin/login';
 
   constructor(private http: HttpClient) {}
 
   login(username: string, password: string): Observable<any> {
-    // URLSearchParams to encode query parameters
-    const params = new URLSearchParams({
-      username,
-      password,
-    }).toString();
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+    });
 
-    // Ensure that no unnecessary headers are set for GET requests
-    return this.http.get<any>(`${this.apiUrl}?${params}`);
+    const body = JSON.stringify({ username, password });
+
+    return this.http.post<any>(this.apiUrl, body, { headers });
   }
 
   setSession(authResult: any) {

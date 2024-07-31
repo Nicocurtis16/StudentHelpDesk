@@ -8,8 +8,8 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent {
-  username: string = '';
-  password: string = '';
+  username: string = 'admin';
+  password: string = 'admin1';
   isPasswordVisible = false;
 
   constructor(private authService: AuthService, private router: Router) {}
@@ -17,19 +17,15 @@ export class LoginComponent {
   togglePasswordVisibility() {
     this.isPasswordVisible = !this.isPasswordVisible;
   }
+
   login() {
     this.authService.login(this.username, this.password).subscribe(
       (data) => {
-        if (data && data.token) {
-          this.authService.setSession(data);
-          this.router.navigate(['/dashmain']);
-        } else {
-          console.error('Login failed: No token returned');
-        }
+        this.authService.setSession(data);
+        this.router.navigate(['/dashmain']);
       },
       (error) => {
         console.error('Error logging in', error);
-        alert('Login failed: Please check your credentials and try again.');
       }
     );
   }
