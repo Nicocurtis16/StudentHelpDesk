@@ -2,14 +2,17 @@
   <div class="h-[90%] w-[90%] bg-indigo-950">
     <!-- User Info -->
     <div class="w-full h-[66px] flex justify-center items-center mb-4">
-      <img class="w-16 h-16 rounded-full" src="../../../assets/Frame 5.png" />
+      <img
+        class="w-16 h-16 rounded-full"
+        [src]="user.profilePictureUrl || '../../../assets/Frame 5.png'"
+      />
       <div class="ml-4 text-white">
-        <span class="block text-xs font-semibold font-['Poppins']"
-          >Nicholas Kyereboah</span
-        >
-        <span class="block text-[10px] font-medium font-['Poppins']"
-          >Admin&#64;StudentHelpDesk.com</span
-        >
+        <span class="block text-xs font-semibold font-['Poppins']">{{
+          user.name || "Nicholas Kyereboah"
+        }}</span>
+        <span class="block text-[10px] font-medium font-['Poppins']">{{
+          user.email || "Admin@StudentHelpDesk.com"
+        }}</span>
       </div>
     </div>
 

@@ -8,8 +8,8 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent {
-  username: string = 'admin';
-  password: string = 'admin1';
+  username: string = '';
+  password: string = '';
   isPasswordVisible = false;
 
   constructor(private authService: AuthService, private router: Router) {}

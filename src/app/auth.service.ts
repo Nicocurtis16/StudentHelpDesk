@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -8,16 +10,19 @@ import { Observable } from 'rxjs';
 export class AuthService {
   private apiUrl = 'http://godinberto.pythonanywhere.com/api/admin/login';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   login(username: string, password: string): Observable<any> {
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-    });
-
-    const body = JSON.stringify({ username, password });
-
-    return this.http.post<any>(this.apiUrl, body, { headers });
+    return this.http.post<any>(this.apiUrl, { username, password }).pipe(
+      tap((response) => {
+        console.log('Login response:', response);
+        if (response && response.access_token) {
+          localStorage.setItem('authToken', response.access_token);
+        } else {
+          console.error('Token not found in login response');
+        }
+      })
+    );
   }
 
   setSession(authResult: any) {
@@ -25,7 +30,8 @@ export class AuthService {
   }
 
   logout() {
-    localStorage.removeItem('token');
+    localStorage.removeItem('authToken');
+    this.router.navigate(['/login']);
   }
 
   public isLoggedIn(): boolean {
