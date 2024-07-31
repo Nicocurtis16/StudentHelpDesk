@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from '../../user.service'; // Adjust the path as needed
-import { AuthService } from '../../auth.service'; // Adjust the path as needed
+import { UserService } from '../../user.service'; // Update the path accordingly
+import { AuthService } from '../../auth.service'; // Update the path accordingly
 import { Router } from '@angular/router';
 
 @Component({
@@ -20,7 +20,12 @@ export class SidebarComponent implements OnInit {
   ngOnInit(): void {
     this.userService.getUser().subscribe(
       (data) => {
+        console.log('User data fetched:', data); // Log the entire response
         this.user = data;
+
+        // Log the specific properties
+        console.log('Username:', data.Username);
+        console.log('Email:', data.Email);
       },
       (error) => {
         console.error('Error fetching user data', error);
