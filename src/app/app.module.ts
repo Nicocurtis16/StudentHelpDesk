@@ -10,6 +10,7 @@ import { SidebarComponent } from './Dashboard/sidebar/sidebar.component';
 import { DashboardComponent } from './Dashboard/dashboard/dashboard.component';
 import { DashlayoutComponent } from './Dashboard/dashlayout/dashlayout.component';
 import { InboxComponent } from './Dashboard/inbox/inbox.component';
+import { ChatComponent } from './Dashboard/chat/chat.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { InboxComponent } from './Dashboard/inbox/inbox.component';
     DashboardComponent,
     DashlayoutComponent,
     InboxComponent,
+    ChatComponent,
   ],
   imports: [
     BrowserModule,
