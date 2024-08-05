@@ -1,9 +1,12 @@
 <div class="h-[100%] w-[100%] flex flex-col justify-between rounded-lg">
+  <!-- top panel -->
   <div class="h-[88%] w-[100%] bg-white rounded-lg">
     <div
-      class="h-[13%] w-[100%] border-b-2 border-[##f1f0f0] rounded-t-lg bg-white flex justify-center items-center"
+      class="h-[13%] w-[100%] border-b-2 border-[#f1f0f0] rounded-t-lg bg-white flex justify-center items-center"
     >
-      <div class="w-[50px] h-[50px] flex items-center justify-center">
+      <div
+        class="w-[50px] h-[50px] ml-[-65px] flex items-center justify-center"
+      >
         <img
           class="w-12 h-12 top-0 rounded-[30px]"
           src="../../../assets/People.png"
@@ -15,10 +18,51 @@
         Nicolas Kyereboah <br />
         <span class="font-medium">online</span>
       </div>
+    </div>
+    <div class="w-[100%] h-[85%] mt-1">
+      <div class="w-[100%] h-[85%] mt-3 pr-4 pl-4">
+        <!-- Sender Message -->
+        <div class="flex items-start mb-4">
+          <div class="mr-3">
+            <img
+              src="https://via.placeholder.com/40"
+              alt="Sender Avatar"
+              class="rounded-full"
+            />
+          </div>
+          <div>
+            <div class="text-sm text-gray-500 mb-1">Sender Name</div>
+            <div class="bg-blue-500 text-white rounded-lg p-3">
+              <p>Hi there! How are you?</p>
+            </div>
+            <div class="text-sm text-gray-500 mt-1">10:30 AM</div>
+          </div>
+        </div>
 
-      <div class="w-[50px] h-[50px]"></div>
+        <!-- Receiver Message -->
+        <div class="flex items-start mb-4 flex-row-reverse">
+          <div class="ml-3">
+            <img
+              src="https://via.placeholder.com/40"
+              alt="Receiver Avatar"
+              class="rounded-full"
+            />
+          </div>
+          <div>
+            <div class="text-sm text-gray-500 mb-1 text-right">
+              Receiver Name
+            </div>
+            <div class="bg-gray-300 text-black rounded-lg p-3">
+              <p>I'm good, thank you! How about you?</p>
+            </div>
+            <div class="text-sm text-gray-500 mt-1 text-right">10:32 AM</div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
+
+  <!-- down panel -->
   <div
     class="h-[10%] w-[100%] bg-white rounded-lg flex items-center justify-center"
   >
