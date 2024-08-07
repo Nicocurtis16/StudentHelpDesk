@@ -1,3 +1,4 @@
+<!-- user-manager.component.html -->
 <div class="w-screen h-screen flex justify-between items-center bg-indigo-950">
   <div class="h-screen w-[20%] flex justify-center">
     <app-sidebar class="w-full h-full"></app-sidebar>
@@ -14,30 +15,31 @@
         >
           <nav class="flex space-x-4 ml-6">
             <a
-              routerLink="/student"
+              routerLink="student"
               class="text-white text-xl font-medium font-['Poppins'] hover:underline"
               >Student</a
             >
             <a
-              routerLink="/admin"
+              routerLink="admin"
               class="text-white text-xl font-medium font-['Poppins'] hover:underline"
               >Admin</a
             >
             <a
-              routerLink="/active-student"
+              routerLink="active-student"
               class="text-white text-xl font-medium font-['Poppins'] hover:underline"
               >Active Student</a
             >
             <a
-              routerLink="/inactive-student"
+              routerLink="inactive-student"
               class="text-white text-xl font-medium font-['Poppins'] hover:underline"
               >Inactive Student</a
             >
           </nav>
         </div>
-        <div
-          class="w-[98%] h-[50px] bg-indigo-950 border border-red-500 rounded-lg mt-4"
-        ></div>
+        <div class="w-[98%] h-[87%] border border-red-500 rounded-lg mt-4">
+          <router-outlet></router-outlet>
+          <!-- Routed components will be displayed here -->
+        </div>
       </div>
     </div>
   </div>

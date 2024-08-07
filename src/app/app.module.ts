@@ -12,6 +12,8 @@ import { DashlayoutComponent } from './Dashboard/dashlayout/dashlayout.component
 import { InboxComponent } from './Dashboard/inbox/inbox.component';
 import { ChatComponent } from './Dashboard/chat/chat.component';
 import { UserManagerComponent } from './Dashboard/user-manager/user-manager.component';
+import { StudentComponent } from './Dashboard/User/student/student.component';
+import { AdminComponent } from './Dashboard/User/admin/admin.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +25,8 @@ import { UserManagerComponent } from './Dashboard/user-manager/user-manager.comp
     InboxComponent,
     ChatComponent,
     UserManagerComponent,
+    StudentComponent,
+    AdminComponent,
   ],
   imports: [
     BrowserModule,
