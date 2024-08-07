@@ -8,13 +8,18 @@ import { InboxComponent } from './Dashboard/inbox/inbox.component';
 import { UserManagerComponent } from './Dashboard/user-manager/user-manager.component';
 import { AdminComponent } from './Dashboard/User/admin/admin.component';
 import { StudentComponent } from './Dashboard/User/student/student.component';
+import { ChatComponent } from './Dashboard/chat/chat.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
   { path: 'dashboard', component: DashboardComponent },
   { path: 'sidebar', component: SidebarComponent },
   { path: 'dashmain', component: DashlayoutComponent },
-  { path: 'inbox', component: InboxComponent },
+  {
+    path: 'inbox',
+    component: InboxComponent,
+    children: [{ path: 'chat', component: ChatComponent }],
+  },
 
   {
     path: 'User Manager',
