@@ -1,0 +1,98 @@
+<!-- user-manager.component.html -->
+<div class="w-screen h-screen flex justify-between items-center bg-indigo-950">
+  <div class="h-screen w-[20%] flex justify-center">
+    <app-sidebar class="w-full h-full"></app-sidebar>
+  </div>
+  <div class="h-[98%] w-[79%] mr-2 flex justify-center">
+    <div
+      class="w-full h-full flex justify-center items-center bg-[#ffffff] rounded-[20px]"
+    >
+      <div class="w-full h-full flex justify-center items-center bg-gray-100">
+        <div class="w-[90%] max-w-[800px] bg-white p-6 rounded-lg shadow-lg">
+          <h1 class="text-2xl font-bold mb-4">Profile</h1>
+
+          <form (ngSubmit)="onSubmit()" #profileForm="ngForm">
+            <div class="mb-4">
+              <label
+                class="block text-gray-700 text-sm font-bold mb-2"
+                for="profilePicture"
+              >
+                Profile Picture
+              </label>
+              <input
+                type="file"
+                id="profilePicture"
+                (change)="onFileChange($event)"
+                class="block w-full text-sm text-gray-500 file:py-2 file:px-4 file:border file:border-gray-300 file:rounded-md file:text-sm file:font-medium file:bg-gray-50"
+              />
+              <img
+                *ngIf="profilePictureUrl"
+                [src]="profilePictureUrl"
+                alt="Profile Picture"
+                class="mt-2 w-24 h-24 rounded-full object-cover"
+              />
+            </div>
+
+            <div class="mb-4">
+              <label
+                class="block text-gray-700 text-sm font-bold mb-2"
+                for="username"
+              >
+                Username
+              </label>
+              <input
+                type="text"
+                id="username"
+                name="username"
+                [(ngModel)]="admin.username"
+                required
+                class="block w-full border border-gray-300 rounded-md p-2 text-gray-700"
+              />
+            </div>
+
+            <div class="mb-4">
+              <label
+                class="block text-gray-700 text-sm font-bold mb-2"
+                for="email"
+              >
+                Email
+              </label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                [(ngModel)]="admin.email"
+                required
+                class="block w-full border border-gray-300 rounded-md p-2 text-gray-700"
+              />
+            </div>
+
+            <div class="mb-4">
+              <label
+                class="block text-gray-700 text-sm font-bold mb-2"
+                for="password"
+              >
+                Password
+              </label>
+              <input
+                type="password"
+                id="password"
+                name="password"
+                [(ngModel)]="admin.password"
+                required
+                class="block w-full border border-gray-300 rounded-md p-2 text-gray-700"
+              />
+            </div>
+
+            <button
+              type="submit"
+              class="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600"
+            >
+              Save Changes
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

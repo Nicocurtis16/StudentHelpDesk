@@ -9,12 +9,14 @@ import { UserManagerComponent } from './Dashboard/user-manager/user-manager.comp
 import { AdminComponent } from './Dashboard/User/admin/admin.component';
 import { StudentComponent } from './Dashboard/User/student/student.component';
 import { ChatComponent } from './Dashboard/chat/chat.component';
+import { ProfileComponent } from './Dashboard/profile/profile.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
   { path: 'dashboard', component: DashboardComponent },
   { path: 'sidebar', component: SidebarComponent },
   { path: 'dashmain', component: DashlayoutComponent },
+  { path: 'profile', component: ProfileComponent },
   {
     path: 'inbox',
     component: InboxComponent,

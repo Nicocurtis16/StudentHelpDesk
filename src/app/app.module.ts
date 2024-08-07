@@ -14,6 +14,7 @@ import { ChatComponent } from './Dashboard/chat/chat.component';
 import { UserManagerComponent } from './Dashboard/user-manager/user-manager.component';
 import { StudentComponent } from './Dashboard/User/student/student.component';
 import { AdminComponent } from './Dashboard/User/admin/admin.component';
+import { ProfileComponent } from './Dashboard/profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { AdminComponent } from './Dashboard/User/admin/admin.component';
     UserManagerComponent,
     StudentComponent,
     AdminComponent,
+    ProfileComponent,
   ],
   imports: [
     BrowserModule,
