@@ -1,4 +1,3 @@
-<!-- user-manager.component.html -->
 <div class="w-screen h-screen flex justify-between items-center bg-indigo-950">
   <div class="h-screen w-[20%] flex justify-center">
     <app-sidebar class="w-full h-full"></app-sidebar>
@@ -36,15 +35,15 @@
             <div class="mb-4">
               <label
                 class="block text-gray-700 text-sm font-bold mb-2"
-                for="username"
+                for="Username"
               >
                 Username
               </label>
               <input
                 type="text"
-                id="username"
-                name="username"
-                [(ngModel)]="admin.username"
+                id="Username"
+                name="Username"
+                [(ngModel)]="admin.Username"
                 required
                 class="block w-full border border-gray-300 rounded-md p-2 text-gray-700"
               />
@@ -53,15 +52,15 @@
             <div class="mb-4">
               <label
                 class="block text-gray-700 text-sm font-bold mb-2"
-                for="email"
+                for="Email"
               >
                 Email
               </label>
               <input
                 type="email"
-                id="email"
-                name="email"
-                [(ngModel)]="admin.email"
+                id="Email"
+                name="Email"
+                [(ngModel)]="admin.Email"
                 required
                 class="block w-full border border-gray-300 rounded-md p-2 text-gray-700"
               />
@@ -70,15 +69,32 @@
             <div class="mb-4">
               <label
                 class="block text-gray-700 text-sm font-bold mb-2"
-                for="password"
+                for="oldPassword"
               >
-                Password
+                Old Password
               </label>
               <input
                 type="password"
-                id="password"
-                name="password"
-                [(ngModel)]="admin.password"
+                id="oldPassword"
+                name="oldPassword"
+                [(ngModel)]="oldPassword"
+                required
+                class="block w-full border border-gray-300 rounded-md p-2 text-gray-700"
+              />
+            </div>
+
+            <div class="mb-4">
+              <label
+                class="block text-gray-700 text-sm font-bold mb-2"
+                for="newPassword"
+              >
+                New Password
+              </label>
+              <input
+                type="password"
+                id="newPassword"
+                name="newPassword"
+                [(ngModel)]="newPassword"
                 required
                 class="block w-full border border-gray-300 rounded-md p-2 text-gray-700"
               />

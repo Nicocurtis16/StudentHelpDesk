@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { User } from '../app/user.model';
 
 @Injectable({
   providedIn: 'root',
@@ -11,7 +12,7 @@ export class UserService {
 
   constructor(private http: HttpClient) {}
 
-  getUser(): Observable<any> {
+  getUser(): Observable<User> {
     const token = localStorage.getItem('authToken');
     if (!token || token.split('.').length !== 3) {
       console.error('Invalid token:', token);
@@ -21,13 +22,24 @@ export class UserService {
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     return this.http.get<any>(this.apiUrl, { headers }).pipe(
       map((response) => {
-        // Extract the first user detail from the 'User Details' array
         if (response['User Details'] && response['User Details'].length > 0) {
-          return response['User Details'][0];
+          const userDetail = response['User Details'][0];
+          return {
+            id: userDetail.id,
+            Username: userDetail.Username,
+            Email: userDetail.Email,
+            password: '', // Password should not be returned by the API for security reasons
+          } as User;
         } else {
           throw new Error('User details not found');
         }
       })
     );
+  }
+
+  updateUser(user: any): Observable<any> {
+    const token = localStorage.getItem('authToken');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.put<any>(`${this.apiUrl}/${user.id}`, user, { headers });
   }
 }

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { UserService } from '../../user.service';
+import { User } from '../../user.model';
 
 @Component({
   selector: 'app-profile',
@@ -6,25 +8,49 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./profile.component.css'],
 })
 export class ProfileComponent implements OnInit {
-  admin = {
-    username: '',
-    email: '',
+  admin: User = {
+    id: 0,
+    Username: '',
+    Email: '',
     password: '',
   };
   profilePictureUrl: string | ArrayBuffer | null = null;
+  oldPassword: string = '';
+  newPassword: string = '';
+
+  constructor(private userService: UserService) {}
 
   ngOnInit(): void {
-    // Fetch admin details on init
     this.loadAdminDetails();
   }
 
   loadAdminDetails(): void {
-    // TODO: Load admin details from API or service
+    this.userService.getUser().subscribe(
+      (user: User) => {
+        this.admin = user;
+      },
+      (error) => {
+        console.error('Error fetching user details:', error);
+      }
+    );
   }
 
   onSubmit(): void {
-    // TODO: Handle form submission to update admin details
-    console.log('Profile updated:', this.admin);
+    // Prepare data for submission
+    const updateData = {
+      ...this.admin,
+      oldPassword: this.oldPassword,
+      newPassword: this.newPassword,
+    };
+
+    this.userService.updateUser(updateData).subscribe(
+      (response) => {
+        console.log('Profile updated:', response);
+      },
+      (error) => {
+        console.error('Error updating profile:', error);
+      }
+    );
   }
 
   onFileChange(event: Event): void {
