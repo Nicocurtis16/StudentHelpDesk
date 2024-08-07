@@ -1,1 +1,44 @@
-<p>user-manager works!</p>
+<div class="w-screen h-screen flex justify-between items-center bg-indigo-950">
+  <div class="h-screen w-[20%] flex justify-center">
+    <app-sidebar class="w-full h-full"></app-sidebar>
+  </div>
+  <div class="h-[98%] w-[79%] mr-2 flex justify-center">
+    <div
+      class="w-full h-full flex justify-center items-center bg-[#ffffff] rounded-[20px]"
+    >
+      <div
+        class="h-[90%] w-[95%] bg-indigo-700 flex flex-col items-center rounded-[20px] border border-red-800"
+      >
+        <div
+          class="h-[50px] w-[100%] border-b-2 border-[#f1f0f0] rounded-t-[20px] bg-indigo-950 flex justify-start items-center"
+        >
+          <nav class="flex space-x-4 ml-6">
+            <a
+              routerLink="/student"
+              class="text-white text-xl font-medium font-['Poppins'] hover:underline"
+              >Student</a
+            >
+            <a
+              routerLink="/admin"
+              class="text-white text-xl font-medium font-['Poppins'] hover:underline"
+              >Admin</a
+            >
+            <a
+              routerLink="/active-student"
+              class="text-white text-xl font-medium font-['Poppins'] hover:underline"
+              >Active Student</a
+            >
+            <a
+              routerLink="/inactive-student"
+              class="text-white text-xl font-medium font-['Poppins'] hover:underline"
+              >Inactive Student</a
+            >
+          </nav>
+        </div>
+        <div
+          class="w-[98%] h-[50px] bg-indigo-950 border border-red-500 rounded-lg mt-4"
+        ></div>
+      </div>
+    </div>
+  </div>
+</div>
