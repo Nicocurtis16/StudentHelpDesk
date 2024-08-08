@@ -15,6 +15,7 @@ import { UserManagerComponent } from './Dashboard/user-manager/user-manager.comp
 import { StudentComponent } from './Dashboard/User/student/student.component';
 import { AdminComponent } from './Dashboard/User/admin/admin.component';
 import { ProfileComponent } from './Dashboard/profile/profile.component';
+import { FAQComponent } from './Dashboard/faq/faq.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { ProfileComponent } from './Dashboard/profile/profile.component';
     StudentComponent,
     AdminComponent,
     ProfileComponent,
+    FAQComponent,
   ],
   imports: [
     BrowserModule,

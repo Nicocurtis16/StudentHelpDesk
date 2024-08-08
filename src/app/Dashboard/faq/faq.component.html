@@ -1,0 +1,56 @@
+<!-- user-manager.component.html -->
+<div class="w-screen h-screen flex justify-between items-center bg-indigo-950">
+  <div class="h-screen w-[20%] flex justify-center">
+    <app-sidebar class="w-full h-full"></app-sidebar>
+  </div>
+  <div class="h-[98%] w-[79%] mr-2 flex justify-center">
+    <div
+      class="w-full h-full flex justify-center items-center bg-[#ffffff] rounded-[20px]"
+    >
+      <div
+        class="h-[90%] w-[95%] bg-indigo-700 flex flex-col items-center rounded-[20px] border border-red-800"
+      >
+        <div
+          class="h-[50px] w-[100%] border-b-2 border-[#f1f0f0] rounded-t-[20px] bg-indigo-950 flex justify-start items-center"
+        >
+          <h1 class="text-white ml-4 font-medium font-['Poppins']">
+            Manage FAQs
+          </h1>
+        </div>
+        <div class="w-[98%] h-[87%] border border-red-500 rounded-lg mt-4">
+          <div class="faq-container">
+            <div class="faq-form">
+              <input
+                type="text"
+                placeholder="Question"
+                [(ngModel)]="newFAQ.question"
+              />
+              <input
+                type="text"
+                placeholder="Answer"
+                [(ngModel)]="newFAQ.answer"
+              />
+              <button (click)="addFAQ()">Add FAQ</button>
+            </div>
+
+            <div class="faq-list">
+              <div *ngFor="let faq of faqs">
+                <input
+                  type="text"
+                  [(ngModel)]="faq.question"
+                  (change)="updateFAQ(faq)"
+                />
+                <input
+                  type="text"
+                  [(ngModel)]="faq.answer"
+                  (change)="updateFAQ(faq)"
+                />
+                <button (click)="deleteFAQ(faq.id)">Delete</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

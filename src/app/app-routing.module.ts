@@ -10,6 +10,7 @@ import { AdminComponent } from './Dashboard/User/admin/admin.component';
 import { StudentComponent } from './Dashboard/User/student/student.component';
 import { ChatComponent } from './Dashboard/chat/chat.component';
 import { ProfileComponent } from './Dashboard/profile/profile.component';
+import { FAQComponent } from './Dashboard/faq/faq.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -17,6 +18,8 @@ const routes: Routes = [
   { path: 'sidebar', component: SidebarComponent },
   { path: 'dashmain', component: DashlayoutComponent },
   { path: 'profile', component: ProfileComponent },
+  { path: 'faqs', component: FAQComponent },
+
   {
     path: 'inbox',
     component: InboxComponent,
