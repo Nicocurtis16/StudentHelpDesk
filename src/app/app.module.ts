@@ -15,7 +15,7 @@ import { UserManagerComponent } from './Dashboard/user-manager/user-manager.comp
 import { StudentComponent } from './Dashboard/User/student/student.component';
 import { AdminComponent } from './Dashboard/User/admin/admin.component';
 import { ProfileComponent } from './Dashboard/profile/profile.component';
-import { FAQComponent } from './Dashboard/faq/faq.component';
+import { FaqComponent } from './Dashboard/faq/faq.component';
 
 @NgModule({
   declarations: [
@@ -30,13 +30,13 @@ import { FAQComponent } from './Dashboard/faq/faq.component';
     StudentComponent,
     AdminComponent,
     ProfileComponent,
-    FAQComponent,
+    FaqComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule, // Add this line
+    FormsModule, // Ensure FormsModule is imported
   ],
   providers: [],
   bootstrap: [AppComponent],

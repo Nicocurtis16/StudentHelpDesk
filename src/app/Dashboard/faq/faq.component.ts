@@ -1,43 +1,77 @@
 // faq.component.ts
 import { Component, OnInit } from '@angular/core';
-import { FAQService } from '../../faq.service';
-import { FAQ } from '../../faq.model';
+import { FaqService } from '../../faq.service';
 
 @Component({
   selector: 'app-faq',
   templateUrl: './faq.component.html',
   styleUrls: ['./faq.component.css'],
 })
-export class FAQComponent implements OnInit {
-  faqs: FAQ[] = [];
-  newFAQ: FAQ = { id: 0, question: '', answer: '' };
+export class FaqComponent implements OnInit {
+  faqs: any[] = [];
+  isModalOpen = false;
+  isEdit = false;
+  faqForm: any = {};
 
-  constructor(private faqService: FAQService) {}
+  constructor(private faqService: FaqService) {}
 
   ngOnInit(): void {
-    this.loadFAQs();
+    this.loadFaqs();
   }
 
-  loadFAQs(): void {
-    this.faqService.getFAQs().subscribe((data) => {
-      this.faqs = data;
-    });
+  loadFaqs(): void {
+    this.faqService.getFaqs().subscribe(
+      (response) => {
+        this.faqs = response.questions;
+      },
+      (error) => {
+        console.error('Error fetching FAQs:', error);
+      }
+    );
   }
 
-  addFAQ(): void {
-    this.faqService.addFAQ(this.newFAQ).subscribe((faq) => {
-      this.faqs.push(faq);
-      this.newFAQ = { id: 0, question: '', answer: '' };
-    });
+  addFaq(): void {
+    this.isEdit = false;
+    this.faqForm = {};
+    this.isModalOpen = true;
   }
 
-  updateFAQ(faq: FAQ): void {
-    this.faqService.updateFAQ(faq).subscribe();
+  editFaq(faq: any): void {
+    this.isEdit = true;
+    this.faqForm = { ...faq };
+    this.isModalOpen = true;
   }
 
-  deleteFAQ(id: number): void {
-    this.faqService.deleteFAQ(id).subscribe(() => {
-      this.faqs = this.faqs.filter((faq) => faq.id !== id);
-    });
+  deleteFaq(faqId: number): void {
+    if (confirm('Are you sure you want to delete this FAQ?')) {
+      this.faqService.deleteFaq(faqId).subscribe(
+        () => this.loadFaqs(),
+        (error) => console.error('Error deleting FAQ:', error)
+      );
+    }
+  }
+
+  closeModal(): void {
+    this.isModalOpen = false;
+  }
+
+  onSubmit(): void {
+    if (this.isEdit) {
+      this.faqService.editFaq(this.faqForm).subscribe(
+        () => {
+          this.loadFaqs();
+          this.closeModal();
+        },
+        (error) => console.error('Error updating FAQ:', error)
+      );
+    } else {
+      this.faqService.addFaq(this.faqForm).subscribe(
+        () => {
+          this.loadFaqs();
+          this.closeModal();
+        },
+        (error) => console.error('Error adding FAQ:', error)
+      );
+    }
   }
 }

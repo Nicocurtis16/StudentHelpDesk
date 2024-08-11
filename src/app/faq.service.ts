@@ -1,31 +1,62 @@
-// faq.service.ts
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { FAQ } from './faq.model';
+import { Observable, throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
 })
-export class FAQService {
-  private apiUrl =
-    'http://godinberto.pythonanywhere.com/api/getAllFaqQuestions';
+export class FaqService {
+  private baseUrl = 'http://godinberto.pythonanywhere.com/api';
 
   constructor(private http: HttpClient) {}
 
-  getFAQs(): Observable<FAQ[]> {
-    return this.http.get<FAQ[]>(this.apiUrl);
+  getFaqs(): Observable<any> {
+    const token = localStorage.getItem('authToken');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http
+      .get<any>(`${this.baseUrl}/getAllFaqQuestions`, { headers })
+      .pipe(
+        catchError((error) => {
+          console.error('Error fetching FAQs:', error);
+          return throwError(() => error);
+        })
+      );
   }
 
-  addFAQ(faq: FAQ): Observable<FAQ> {
-    return this.http.post<FAQ>(this.apiUrl, faq);
+  addFaq(faq: any): Observable<any> {
+    const url = `${this.baseUrl}/addFaqQuestions/Department`; // Ensure this URL is correct
+    const token = localStorage.getItem('authToken');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.post<any>(url, faq, { headers }).pipe(
+      catchError((error) => {
+        console.error('Error adding FAQ:', error);
+        return throwError(() => error);
+      })
+    );
   }
 
-  updateFAQ(faq: FAQ): Observable<FAQ> {
-    return this.http.put<FAQ>(`${this.apiUrl}/${faq.id}`, faq);
+  editFaq(faq: any): Observable<any> {
+    const url = `${this.baseUrl}/updateFaqQuestion/${faq.QuestionID}`;
+    const token = localStorage.getItem('authToken');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.put<any>(url, faq, { headers }).pipe(
+      catchError((error) => {
+        console.error('Error updating FAQ:', error);
+        return throwError(() => error);
+      })
+    );
   }
 
-  deleteFAQ(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+  deleteFaq(faqId: number): Observable<any> {
+    const url = `${this.baseUrl}/deleteFaqQuestion/${faqId}`;
+    const token = localStorage.getItem('authToken');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.delete<any>(url, { headers }).pipe(
+      catchError((error) => {
+        console.error('Error deleting FAQ:', error);
+        return throwError(() => error);
+      })
+    );
   }
 }

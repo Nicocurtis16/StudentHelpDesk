@@ -1,56 +1,64 @@
-<!-- user-manager.component.html -->
-<div class="w-screen h-screen flex justify-between items-center bg-indigo-950">
-  <div class="h-screen w-[20%] flex justify-center">
-    <app-sidebar class="w-full h-full"></app-sidebar>
-  </div>
-  <div class="h-[98%] w-[79%] mr-2 flex justify-center">
-    <div
-      class="w-full h-full flex justify-center items-center bg-[#ffffff] rounded-[20px]"
-    >
-      <div
-        class="h-[90%] w-[95%] bg-indigo-700 flex flex-col items-center rounded-[20px] border border-red-800"
-      >
-        <div
-          class="h-[50px] w-[100%] border-b-2 border-[#f1f0f0] rounded-t-[20px] bg-indigo-950 flex justify-start items-center"
-        >
-          <h1 class="text-white ml-4 font-medium font-['Poppins']">
-            Manage FAQs
-          </h1>
-        </div>
-        <div class="w-[98%] h-[87%] border border-red-500 rounded-lg mt-4">
-          <div class="faq-container">
-            <div class="faq-form">
-              <input
-                type="text"
-                placeholder="Question"
-                [(ngModel)]="newFAQ.question"
-              />
-              <input
-                type="text"
-                placeholder="Answer"
-                [(ngModel)]="newFAQ.answer"
-              />
-              <button (click)="addFAQ()">Add FAQ</button>
-            </div>
+<!-- faq.component.html -->
+<div class="faq-container">
+  <h1>Manage FAQs</h1>
+  <button (click)="addFaq()">Add FAQ</button>
 
-            <div class="faq-list">
-              <div *ngFor="let faq of faqs">
-                <input
-                  type="text"
-                  [(ngModel)]="faq.question"
-                  (change)="updateFAQ(faq)"
-                />
-                <input
-                  type="text"
-                  [(ngModel)]="faq.answer"
-                  (change)="updateFAQ(faq)"
-                />
-                <button (click)="deleteFAQ(faq.id)">Delete</button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+  <table>
+    <thead>
+      <tr>
+        <th>Question ID</th>
+        <th>Question</th>
+        <th>Answer</th>
+        <th>Topic</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let faq of faqs">
+        <td>{{ faq.QuestionID }}</td>
+        <td>{{ faq.Question }}</td>
+        <td>{{ faq.Answer }}</td>
+        <td>{{ faq.Topic }}</td>
+        <td>
+          <button (click)="editFaq(faq)">Edit</button>
+          <button (click)="deleteFaq(faq.QuestionID)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- Add/Edit FAQ Modal -->
+<div *ngIf="isModalOpen" class="modal">
+  <div class="modal-content">
+    <span class="close" (click)="closeModal()">&times;</span>
+    <h2>{{ isEdit ? "Edit FAQ" : "Add FAQ" }}</h2>
+
+    <form (ngSubmit)="onSubmit()">
+      <label for="question">Question:</label>
+      <input
+        type="text"
+        id="question"
+        [(ngModel)]="faqForm.Question"
+        name="question"
+        required
+      />
+
+      <label for="answer">Answer:</label>
+      <textarea
+        id="answer"
+        [(ngModel)]="faqForm.Answer"
+        name="answer"
+        required
+      ></textarea>
+
+      <label for="topic">Topic:</label>
+      <select id="topic" [(ngModel)]="faqForm.Topic" name="topic" required>
+        <option value="Admission">Admission</option>
+        <option value="Department">Department</option>
+      </select>
+
+      <button type="submit">{{ isEdit ? "Update" : "Add" }}</button>
+    </form>
   </div>
 </div>
