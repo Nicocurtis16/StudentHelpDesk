@@ -1,4 +1,3 @@
-// faq.service.ts
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
@@ -32,9 +31,8 @@ export class FaqService {
       );
   }
 
-  // Method to add a FAQ with dynamic topic
   addFaq(faq: any, topic: string): Observable<any> {
-    const url = `${this.baseUrl}/addFaqQuestions/${topic}`;
+    const url = `${this.baseUrl}/addFaqQuestions/${encodeURIComponent(topic)}`;
     const token = localStorage.getItem('authToken');
     const headers = new HttpHeaders()
       .set('Authorization', `Bearer ${token}`)
@@ -60,8 +58,18 @@ export class FaqService {
   editFaq(faq: any): Observable<any> {
     const url = `${this.baseUrl}/updateFaqQuestion/${faq.QuestionID}`;
     const token = localStorage.getItem('authToken');
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.http.put<any>(url, faq, { headers }).pipe(
+    const headers = new HttpHeaders()
+      .set('Authorization', `Bearer ${token}`)
+      .set('Content-Type', 'application/json');
+
+    // Create a payload to match the API requirements
+    const payload = {
+      question: faq.Question,
+      answer: faq.Answer,
+      topic: faq.Topic, // Include the topic if the API requires it
+    };
+
+    return this.http.put<any>(url, payload, { headers }).pipe(
       map((response) => {
         console.log('Success updating FAQ:', response);
         return response;
@@ -74,6 +82,7 @@ export class FaqService {
   }
 
   deleteFaq(faqId: number): Observable<any> {
+    // Note: Updated the endpoint with the correct format for deleting FAQ
     const url = `${this.baseUrl}/deleteFaqQuestion/${faqId}`;
     const token = localStorage.getItem('authToken');
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);

@@ -1,4 +1,3 @@
-// faq.component.ts
 import { Component, OnInit } from '@angular/core';
 import { FaqService } from '../../faq.service';
 
@@ -12,7 +11,9 @@ export class FaqComponent implements OnInit {
   isModalOpen = false;
   isEdit = false;
   faqForm: any = {};
-  selectedTopic: string = 'Department'; // Default topic, or set it dynamically
+  selectedTopic: string = 'Department';
+  isConfirmModalOpen = false; // State for confirmation modal
+  confirmedFaqId: number | null = null; // Store the ID of the FAQ to be deleted
 
   constructor(private faqService: FaqService) {}
 
@@ -24,7 +25,7 @@ export class FaqComponent implements OnInit {
     this.faqService.getFaqs().subscribe(
       (response) => {
         console.log('Fetched FAQs:', response);
-        this.faqs = response.questions; // Adjust based on API response
+        this.faqs = response.questions;
         this.faqs.forEach((faq) => (faq.isExpanded = false));
       },
       (error) => {
@@ -54,10 +55,24 @@ export class FaqComponent implements OnInit {
     this.isModalOpen = true;
   }
 
+  confirmDelete(faqId: number): void {
+    this.confirmedFaqId = faqId;
+    this.isConfirmModalOpen = true;
+  }
+
+  cancelDelete(): void {
+    this.isConfirmModalOpen = false;
+    this.confirmedFaqId = null;
+  }
+
   deleteFaq(faqId: number): void {
-    if (confirm('Are you sure you want to delete this FAQ?')) {
+    if (faqId !== null) {
       this.faqService.deleteFaq(faqId).subscribe(
-        () => this.loadFaqs(),
+        () => {
+          this.loadFaqs();
+          this.isConfirmModalOpen = false;
+          this.confirmedFaqId = null;
+        },
         (error) => console.error('Error deleting FAQ:', error)
       );
     }
@@ -84,7 +99,7 @@ export class FaqComponent implements OnInit {
       this.faqService.editFaq(this.faqForm).subscribe(
         (response) => {
           console.log('FAQ updated successfully:', response.message);
-          this.loadFaqs(); // Refresh the list
+          this.loadFaqs();
           this.closeModal();
         },
         (error) => {
@@ -95,7 +110,7 @@ export class FaqComponent implements OnInit {
       this.faqService.addFaq(payload, this.selectedTopic).subscribe(
         (response) => {
           console.log('FAQ added successfully:', response.message);
-          this.loadFaqs(); // Refresh the list
+          this.loadFaqs();
           this.closeModal();
         },
         (error) => {
