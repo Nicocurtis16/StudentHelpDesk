@@ -73,7 +73,7 @@
             <!-- FAQ Details (Initially Hidden, Replaces Summary on Click) -->
             <div
               *ngIf="faq.isExpanded"
-              class="h-[172px] w-[90%] p-6 mt-4 bg-white rounded border border-indigo-700 justify-betwen items-center gap-6 inline-flex"
+              class="h-[172px] w-[90%] p-6 mt-4 bg-white rounded border border-indigo-700 justify-between items-center gap-6 inline-flex"
             >
               <div class="h-[100%] w-[90%] flex">
                 <div
@@ -161,7 +161,7 @@
               required
             >
               <option value="Admission">Admission</option>
-              <option value="Department">Department</option>
+              <option value="Department" selected>Department</option>
             </select>
 
             <button type="submit">{{ isEdit ? "Update" : "Add" }}</button>

@@ -1,3 +1,4 @@
+// faq.component.ts
 import { Component, OnInit } from '@angular/core';
 import { FaqService } from '../../faq.service';
 
@@ -21,8 +22,8 @@ export class FaqComponent implements OnInit {
   loadFaqs(): void {
     this.faqService.getFaqs().subscribe(
       (response) => {
-        this.faqs = response.questions;
-        // Initialize the 'isExpanded' property for each FAQ
+        console.log('Fetched FAQs:', response);
+        this.faqs = response.questions; // Adjust based on API response
         this.faqs.forEach((faq) => (faq.isExpanded = false));
       },
       (error) => {
@@ -33,13 +34,22 @@ export class FaqComponent implements OnInit {
 
   addFaq(): void {
     this.isEdit = false;
-    this.faqForm = {};
+    this.faqForm = {
+      Question: '',
+      Answer: '',
+      Topic: 'Department',
+    };
     this.isModalOpen = true;
   }
 
   editFaq(faq: any): void {
     this.isEdit = true;
-    this.faqForm = { ...faq };
+    this.faqForm = {
+      Question: faq.Question,
+      Answer: faq.Answer,
+      Topic: faq.Topic,
+      QuestionID: faq.QuestionID,
+    };
     this.isModalOpen = true;
   }
 
@@ -57,30 +67,46 @@ export class FaqComponent implements OnInit {
   }
 
   onSubmit(): void {
+    console.log('Submitting FAQ data:', this.faqForm);
+
+    if (!this.faqForm.Question || !this.faqForm.Answer) {
+      alert('Please fill out all required fields.');
+      return;
+    }
+
+    const payload = {
+      Question: this.faqForm.Question,
+      Answer: this.faqForm.Answer,
+      Topic: this.faqForm.Topic || 'Department',
+    };
+
     if (this.isEdit) {
       this.faqService.editFaq(this.faqForm).subscribe(
-        () => {
-          this.loadFaqs();
+        (response) => {
+          console.log('FAQ updated successfully:', response.message);
+          this.loadFaqs(); // Refresh the list
           this.closeModal();
         },
-        (error) => console.error('Error updating FAQ:', error)
+        (error) => {
+          console.error('Error updating FAQ:', error);
+        }
       );
     } else {
-      this.faqService.addFaq(this.faqForm).subscribe(
-        () => {
-          this.loadFaqs();
+      this.faqService.addFaq(payload).subscribe(
+        (response) => {
+          console.log('FAQ added successfully:', response.message);
+          this.loadFaqs(); // Refresh the list
           this.closeModal();
         },
-        (error) => console.error('Error adding FAQ:', error)
+        (error) => {
+          console.error('Error adding FAQ:', error);
+        }
       );
     }
   }
 
   toggleExpand(selectedFaq: any): void {
-    // Set all FAQs to not expanded
     this.faqs.forEach((faq) => (faq.isExpanded = false));
-
-    // Toggle the selected FAQ
     selectedFaq.isExpanded = !selectedFaq.isExpanded;
   }
 }
