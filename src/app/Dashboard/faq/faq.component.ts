@@ -1,4 +1,3 @@
-// faq.component.ts
 import { Component, OnInit } from '@angular/core';
 import { FaqService } from '../../faq.service';
 
@@ -23,6 +22,8 @@ export class FaqComponent implements OnInit {
     this.faqService.getFaqs().subscribe(
       (response) => {
         this.faqs = response.questions;
+        // Initialize the 'isExpanded' property for each FAQ
+        this.faqs.forEach((faq) => (faq.isExpanded = false));
       },
       (error) => {
         console.error('Error fetching FAQs:', error);
@@ -74,9 +75,12 @@ export class FaqComponent implements OnInit {
       );
     }
   }
-  isExpanded = false;
 
-  toggleExpand() {
-    this.isExpanded = !this.isExpanded;
+  toggleExpand(selectedFaq: any): void {
+    // Set all FAQs to not expanded
+    this.faqs.forEach((faq) => (faq.isExpanded = false));
+
+    // Toggle the selected FAQ
+    selectedFaq.isExpanded = !selectedFaq.isExpanded;
   }
 }
