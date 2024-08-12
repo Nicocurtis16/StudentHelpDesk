@@ -1,64 +1,159 @@
 <!-- faq.component.html -->
-<div class="faq-container">
-  <h1>Manage FAQs</h1>
-  <button (click)="addFaq()">Add FAQ</button>
 
-  <table>
-    <thead>
-      <tr>
-        <th>Question ID</th>
-        <th>Question</th>
-        <th>Answer</th>
-        <th>Topic</th>
-        <th>Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let faq of faqs">
-        <td>{{ faq.QuestionID }}</td>
-        <td>{{ faq.Question }}</td>
-        <td>{{ faq.Answer }}</td>
-        <td>{{ faq.Topic }}</td>
-        <td>
-          <button (click)="editFaq(faq)">Edit</button>
-          <button (click)="deleteFaq(faq.QuestionID)">Delete</button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+<!-- user-manager.component.html -->
+<div class="w-screen h-screen flex justify-between items-center bg-indigo-950">
+  <div class="h-screen w-[20%] flex justify-center">
+    <app-sidebar class="w-full h-full"></app-sidebar>
+  </div>
+  <div class="h-[98%] w-[79%] mr-2 flex justify-center">
+    <div
+      class="w-full h-full flex justify-center items-center bg-[#ffffff] rounded-[20px]"
+    >
+      <div
+        class="h-[90%] w-[95%] border-2 border-indigo-700 flex flex-col items-center rounded-[20px]"
+      >
+        <div class="h-[15%] w-[100%] flex justify-center items-center gap-4">
+          <div>
+            <span
+              class="text-[#272d27] text-[26px] font-semibold font-['Montserrat'] leading-loose"
+              >Have any frequent questions? add them </span
+            ><span
+              class="text-[#272d27] text-[26px] font-bold font-['Montserrat'] leading-loose"
+              >with Answers </span
+            ><span
+              class="text-[#272d27] text-[26px] font-semibold font-['Montserrat'] leading-loose"
+            >
+              here
+            </span>
+          </div>
+          <button
+            class="h-[50px] w-[100px] bg-indigo-700 text-[#ffffff] text-[16px] font-semibold font-['Montserrat'] leading-loose rounded-lg"
+            (click)="addFaq()"
+          >
+            Add FAQ
+          </button>
+        </div>
+        <!-- First Div (Initially Visible) -->
+        <div
+          *ngIf="!isExpanded"
+          class="h-20 p-6 bg-white mt-4 rounded border border-[#218442] justify-between items-center inline-flex"
+        >
+          <div
+            class="text-[#272d27] pl-4 mr-5 text-xl font-semibold font-['Montserrat'] leading-normal"
+          >
+            Lorem ipsum dolor sit amet consectetur?
+          </div>
+          <div class="w-12 h-12 relative">
+            <div
+              class="w-12 h-12 left-0 top-0 absolute bg-white rounded-full"
+              (click)="toggleExpand()"
+            >
+              <img src="../../../assets/default-ex.svg" alt="Expand" />
+            </div>
+          </div>
+        </div>
 
-<!-- Add/Edit FAQ Modal -->
-<div *ngIf="isModalOpen" class="modal">
-  <div class="modal-content">
-    <span class="close" (click)="closeModal()">&times;</span>
-    <h2>{{ isEdit ? "Edit FAQ" : "Add FAQ" }}</h2>
+        <!-- Second Div (Initially Hidden, Replaces First Div) -->
+        <div
+          *ngIf="isExpanded"
+          class="h-[172px] p-6 mt-4 bg-white rounded border border-[#218442] justify-start items-start gap-6 inline-flex"
+        >
+          <div
+            class="grow shrink basis-0 flex-col justify-start items-start gap-4 inline-flex"
+          >
+            <div
+              class="self-stretch text-[#272d27] text-xl font-semibold font-['Montserrat'] leading-normal"
+            >
+              What color should you choose as a primary?
+            </div>
+            <div
+              class="self-stretch text-[#272d27] text-lg font-normal font-['Montserrat'] leading-7"
+            >
+              Lorem ipsum dolor sit amet consectetur. Nunc et nulla laoreet et.
+              Tincidunt feugiat in lectus quis. Neque porttitor arcu faucibus
+              elementum egestas. Id proin malesuada leo nunc est fringilla purus
+              consectetur platea. Dis rhoncus magnis dictum dui interdum
+              ullamcorper donec adipiscing.
+            </div>
+          </div>
+          <div class="w-12 h-12 relative">
+            <div
+              class="w-12 h-12 left-0 top-0 absolute bg-[#218442] rounded-full"
+              (click)="toggleExpand()"
+            >
+              <img src="../../../assets/expand.svg" alt="Collapse" />
+            </div>
+          </div>
+        </div>
 
-    <form (ngSubmit)="onSubmit()">
-      <label for="question">Question:</label>
-      <input
-        type="text"
-        id="question"
-        [(ngModel)]="faqForm.Question"
-        name="question"
-        required
-      />
+        <!-- <div class="faq-container">
+          <h1>Manage FAQs</h1>
+          
 
-      <label for="answer">Answer:</label>
-      <textarea
-        id="answer"
-        [(ngModel)]="faqForm.Answer"
-        name="answer"
-        required
-      ></textarea>
+          <table>
+            <thead>
+              <tr>
+                <th>Question ID</th>
+                <th>Question</th>
+                <th>Answer</th>
+                <th>Topic</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let faq of faqs">
+                <td>{{ faq.QuestionID }}</td>
+                <td>{{ faq.Question }}</td>
+                <td>{{ faq.Answer }}</td>
+                <td>{{ faq.Topic }}</td>
+                <td>
+                  <button (click)="editFaq(faq)">Edit</button>
+                  <button (click)="deleteFaq(faq.QuestionID)">Delete</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div> -->
 
-      <label for="topic">Topic:</label>
-      <select id="topic" [(ngModel)]="faqForm.Topic" name="topic" required>
-        <option value="Admission">Admission</option>
-        <option value="Department">Department</option>
-      </select>
+        <!-- Add/Edit FAQ Modal -->
+        <!-- <div *ngIf="isModalOpen" class="modal">
+          <div class="modal-content">
+            <span class="close" (click)="closeModal()">&times;</span>
+            <h2>{{ isEdit ? "Edit FAQ" : "Add FAQ" }}</h2>
 
-      <button type="submit">{{ isEdit ? "Update" : "Add" }}</button>
-    </form>
+            <form (ngSubmit)="onSubmit()">
+              <label for="question">Question:</label>
+              <input
+                type="text"
+                id="question"
+                [(ngModel)]="faqForm.Question"
+                name="question"
+                required
+              />
+
+              <label for="answer">Answer:</label>
+              <textarea
+                id="answer"
+                [(ngModel)]="faqForm.Answer"
+                name="answer"
+                required
+              ></textarea>
+
+              <label for="topic">Topic:</label>
+              <select
+                id="topic"
+                [(ngModel)]="faqForm.Topic"
+                name="topic"
+                required
+              >
+                <option value="Admission">Admission</option>
+                <option value="Department">Department</option>
+              </select>
+
+              <button type="submit">{{ isEdit ? "Update" : "Add" }}</button>
+            </form>
+          </div> -->
+      </div>
+    </div>
   </div>
 </div>

@@ -74,4 +74,9 @@ export class FaqComponent implements OnInit {
       );
     }
   }
+  isExpanded = false;
+
+  toggleExpand() {
+    this.isExpanded = !this.isExpanded;
+  }
 }
