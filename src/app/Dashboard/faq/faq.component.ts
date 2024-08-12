@@ -12,6 +12,7 @@ export class FaqComponent implements OnInit {
   isModalOpen = false;
   isEdit = false;
   faqForm: any = {};
+  selectedTopic: string = 'Department'; // Default topic, or set it dynamically
 
   constructor(private faqService: FaqService) {}
 
@@ -37,7 +38,7 @@ export class FaqComponent implements OnInit {
     this.faqForm = {
       Question: '',
       Answer: '',
-      Topic: 'Department',
+      Topic: this.selectedTopic,
     };
     this.isModalOpen = true;
   }
@@ -77,7 +78,6 @@ export class FaqComponent implements OnInit {
     const payload = {
       Question: this.faqForm.Question,
       Answer: this.faqForm.Answer,
-      Topic: this.faqForm.Topic || 'Department',
     };
 
     if (this.isEdit) {
@@ -92,7 +92,7 @@ export class FaqComponent implements OnInit {
         }
       );
     } else {
-      this.faqService.addFaq(payload).subscribe(
+      this.faqService.addFaq(payload, this.selectedTopic).subscribe(
         (response) => {
           console.log('FAQ added successfully:', response.message);
           this.loadFaqs(); // Refresh the list

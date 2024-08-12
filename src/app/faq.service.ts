@@ -12,7 +12,6 @@ export class FaqService {
 
   constructor(private http: HttpClient) {}
 
-  // Method to get all FAQs
   getFaqs(): Observable<any> {
     const token = localStorage.getItem('authToken');
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
@@ -33,9 +32,9 @@ export class FaqService {
       );
   }
 
-  // Method to add a FAQ
-  addFaq(faq: any): Observable<any> {
-    const url = `${this.baseUrl}/addFaqQuestions/Department`;
+  // Method to add a FAQ with dynamic topic
+  addFaq(faq: any, topic: string): Observable<any> {
+    const url = `${this.baseUrl}/addFaqQuestions/${topic}`;
     const token = localStorage.getItem('authToken');
     const headers = new HttpHeaders()
       .set('Authorization', `Bearer ${token}`)
@@ -44,7 +43,6 @@ export class FaqService {
     const payload = {
       question: faq.Question,
       answer: faq.Answer,
-      topic: faq.Topic,
     };
 
     return this.http.post<any>(url, payload, { headers }).pipe(
@@ -59,7 +57,6 @@ export class FaqService {
     );
   }
 
-  // Method to edit a FAQ
   editFaq(faq: any): Observable<any> {
     const url = `${this.baseUrl}/updateFaqQuestion/${faq.QuestionID}`;
     const token = localStorage.getItem('authToken');
@@ -76,7 +73,6 @@ export class FaqService {
     );
   }
 
-  // Method to delete a FAQ
   deleteFaq(faqId: number): Observable<any> {
     const url = `${this.baseUrl}/deleteFaqQuestion/${faqId}`;
     const token = localStorage.getItem('authToken');
